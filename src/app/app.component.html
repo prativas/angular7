@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{ title }}</h2>
+      <div class="main-container">
+        <div class="add-new-device form-group">
+          <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && addDevice(f.value); f.reset()" novalidate>
+            <table width="76%" cellspacing="0">
+              <tr>
+                <td>
+                  <h3 class="add-device-label">Add New Device</h3>
+                </td>
+
+                <td>
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="devicenumber" class="mac-id form-control" placeholder="Device No." [(ngModel)]="model.devicenumber"
+                      #devicenumber="ngModel" [ngClass]="{ 'is-invalid': f.submitted && devicenumber.invalid }" required />
+
+                    <!--<input type="text" value="" name="devicenumber" class="device-number form-control" placeholder="Device No."
+                    [ngClass]="{ 'is-invalid': form.submitted && devicenumber.invalid }" required ngModel />-->
+                    <div *ngIf="f.submitted && devicenumber.invalid" class="invalid-feedback">
+                      <div *ngIf="devicenumber.errors.required">Device No. is required</div>
+                    </div>
+                  </div>
+                </td>
+
+
+                <td>
+                  <div class="form-group">
+                    <input type="text" value="" name="macid" class="mac-id form-control" placeholder="MAC ID" [(ngModel)]="model.macid" #macid="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && macid.invalid }" required />
+                    <div *ngIf="f.submitted && macid.invalid" class="invalid-feedback">
+                      <div *ngIf="macid.errors.required">MAC ID is required</div>
+                    </div>
+                  </div>
+                </td>
+
+
+                <td>
+                  <div class="form-group">
+                    <input type="text" value="" name="customername" class="customer-name form-control" placeholder="Customer Name" [(ngModel)]="model.customername"
+                      #customername="ngModel" [ngClass]="{ 'is-invalid': f.submitted && customername.invalid }" required />
+                    <div *ngIf="f.submitted && customername.invalid" class="invalid-feedback">
+                      <div *ngIf="customername.errors.required">Customer Name is required</div>
+                    </div>
+                  </div>
+                </td>
+
+
+                <td>
+                  <div class="form-group">
+                    <input type="text" value="" name="shiptono" class="shipto-no form-control" placeholder="Ship To No" [(ngModel)]="model.shiptono"
+                      #shiptono="ngModel" [ngClass]="{ 'is-invalid': f.submitted && shiptono.invalid }" required />
+                    <div *ngIf="f.submitted && shiptono.invalid" class="invalid-feedback">
+                      <div *ngIf="shiptono.errors.required">Ship To No is required</div>
+                    </div>
+                  </div>
+                </td>
+
+
+                <td>
+                  <div class="form-group"><button class="btn-adddevice btn btn-primary">Add Device</button></div>
+                </td>
+
+                <!--<button type="reset">Clear</button>-->
+              </tr>
+            </table>
+          </form>
+        </div>
+        <div class="list-device table-container" *ngIf="device.length != 0">
+          <table width="100%" class="records" cellspacing="0">
+            <thead>
+              <!--<div>
+                    {{ device | json }}
+                </div>-->
+              <tr>
+                <!--<th>SL.No</th>-->
+                <th>Device Number</th>
+                <th>Mac ID</th>
+                <th>Customer Name</th>
+                <th>Ship To No</th>
+                <th rowspan="" colspan="4">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--{{ device }}-->
+              <tr *ngFor="let dev of device; let i = index">
+                <!--<td>{{ i + 1 }}</td>-->
+                <td *ngIf="!(i==editableRow)">{{ dev.devicenumber }}</td>
+                <td *ngIf="!(i==editableRow)">{{ dev.macid }}</td>
+                <td *ngIf="!(i==editableRow)">{{ dev.customername }}</td>
+                <td *ngIf="!(i==editableRow)">{{ dev.shiptono }}</td>
+
+                <td *ngIf="i==editableRow"><input type="text" [(ngModel)]="dev.devicenumber" /></td>
+                <td *ngIf="i==editableRow"><input type="text" [(ngModel)]="dev.macid" /></td>
+                <td *ngIf="i==editableRow"><input type="text" [(ngModel)]="dev.customername" /></td>
+                <td *ngIf="i==editableRow"><input type="text" [(ngModel)]="dev.shiptono" /></td>
+                <td *ngIf="!(i==editableRow)" (click)="editRow(i)" class="cursor-pointer">Edit</td>
+                <td *ngIf="i==editableRow" (click)="save(dev)" class="cursor-pointer">save</td>
+                <td *ngIf="i==editableRow" (click)="cancel(dev)" class="cursor-pointer">Cancel</td>
+                <td *ngIf="!(i==editableRow)" (click)="deleteRow(dev)" class="cursor-pointer">Delete</td>
+                <!--<td (click)="save(dev)">save</td>-->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="device-count" *ngIf="device.length != 0">
+          <p>{{ device.length }} Devices available</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

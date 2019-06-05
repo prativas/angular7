@@ -1,0 +1,32 @@
+<h2>{{title}}</h2>
+<div class="main-container">
+  <div class="add-new-device">
+    <span>Add New Device</span>
+    <!--<form [formModule]="addDeviceForm" (ngSubmit)="onSubmit()">-->
+    <input type="text" value="" #devicenumber name="devicenumber" id="devicenumber" class="device-number" placeholder="Device No.">
+    <input type="text" value="" name="macid" id="macID" class="mac-id" placeholder="MAC ID">
+    <input type="text" value="" name="customername" id="customerName" class="customer-name" placeholder="Customer Name">
+    <input type="text" value="" name="shiptono" id="shipToNo" class="shipto-no" placeholder="Ship To No">
+    <input type="button" id="addDevice" class="add-device" value="Add Device">
+    <!--</form>-->
+
+  </div>
+  <div class="list-device">
+    <table>
+      <thead>
+        <tr>
+          <td>Device</td>
+          <td>Device</td>
+          <td>Device</td>
+          <td>Device</td>
+          <td>Device</td>
+        </tr>
+      </thead>
+      <tbody>{{device}}
+        <tr *ngFor="let dev of device">
+          <td>{{dev.value}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
